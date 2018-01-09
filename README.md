@@ -1,3 +1,5 @@
+> 🏗 This project is under development!
+
 # Node.js API-wrapper for Public Transport in Hamburg
 
 ## Installation
@@ -22,8 +24,8 @@ const hvv = new HVVClient({
 
 hvv
   .getRoute({
-    from: '...',
-    to: '...'
+    start: '...',
+    dest: '...'
   })
   .then(result => console.log(result));
 ```
