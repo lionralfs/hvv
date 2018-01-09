@@ -1,0 +1,19 @@
+{
+  "name": "hvv",
+  "version": "0.0.0",
+  "description": "Node.js wrapper for the HVV API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lionralfs/hvv.git"
+  },
+  "author": "Lion Ralfs <lion.ralfs@hotmail.com> (https://github.com/lionralfs)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lionralfs/hvv/issues"
+  },
+  "homepage": "https://github.com/lionralfs/hvv#readme"
+}

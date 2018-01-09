@@ -22,3 +22,7 @@ hvv
   })
   .then(result => console.log(result));
 ```
+
+## License
+
+[MIT](LICENSE) © Lion Ralfs
