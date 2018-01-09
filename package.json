@@ -2,8 +2,12 @@
   "name": "hvv",
   "version": "0.0.0",
   "description": "Node.js wrapper for the HVV API",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/",
   "scripts": {
+    "build": "tsc",
+    "lint": "tslint -p tslint.json",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +19,15 @@
   "bugs": {
     "url": "https://github.com/lionralfs/hvv/issues"
   },
-  "homepage": "https://github.com/lionralfs/hvv#readme"
+  "homepage": "https://github.com/lionralfs/hvv#readme",
+  "devDependencies": {
+    "@types/node": "^9.3.0",
+    "tslint": "^5.8.0",
+    "tslint-config-prettier": "^1.6.0",
+    "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  }
 }

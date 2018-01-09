@@ -11,8 +11,13 @@ npm install hvv
 ```js
 import { HVVClient } from 'hvv';
 
-const hvv = new HVVClient({
-  key: '<YOUR-API-KEY>'
+const client = new HVVClient({
+  accept: 'application/json',
+  contentType: 'application/json',
+  host: '/',
+  key: 'secret',
+  platform: 'web',
+  user: 'user'
 });
 
 hvv
