@@ -6,6 +6,14 @@ export interface HVVClientInterface {
 
 export interface HVVClientOptions {
   /**
+   * Represents `geofox-auth-user` header, provided by HBT GmbH.
+   */
+  user: string;
+  /**
+   * Individual password, provided by HBT GmbH.
+   */
+  key: string;
+  /**
    * The API Host address.
    * Default: http://api-test.geofox.de
    */
@@ -26,7 +34,7 @@ export interface HVVClientOptions {
    */
   accept?: 'application/json' | 'application/xml';
   /**
-   * *X-Platform* represents the clients platform.
+   * Represents the clients platform.
    * Accepts the following values:
    * - ios (for iOS Apps)
    * - android (for Android Apps)
@@ -35,14 +43,6 @@ export interface HVVClientOptions {
    * - mobile (for mobile websites)
    */
   platform?: 'ios' | 'android' | 'winphone' | 'web' | 'mobile';
-  /**
-   * Represents `geofox-auth-user` header.
-   */
-  user: string;
-  /**
-   * Custom api key to encrypt payload
-   */
-  key: string;
 }
 
 export interface DefaultOptions {
