@@ -11,7 +11,7 @@ npm install hvv
 ```js
 import { HVVClient } from 'hvv';
 
-const client = new HVVClient({
+const hvv = new HVVClient({
   accept: 'application/json',
   contentType: 'application/json',
   host: '/',
