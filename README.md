@@ -1,4 +1,4 @@
-# HVV Node.js Wrapper
+# Node.js API-wrapper for Public Transport in Hamburg
 
 ## Installation
 
