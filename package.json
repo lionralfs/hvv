@@ -7,8 +7,16 @@
   "scripts": {
     "build": "tsc",
     "lint": "tslint -p tslint.json",
-    "prepublishOnly": "npm run build",
+    "precommit": "lint-staged",
+    "prepublishOnly": "npm run lint && npm run build",
     "test": "jest"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "tslint -p tslint.json",
+      "prettier --write",
+      "git add"
+    ]
   },
   "jest": {
     "verbose": true,
@@ -37,7 +45,10 @@
     "@types/jest": "^22.0.1",
     "@types/node": "^9.3.0",
     "@types/request-promise": "^4.1.39",
+    "husky": "^0.14.3",
     "jest": "^22.0.5",
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.10.1",
     "ts-jest": "^22.0.1",
     "tslint": "^5.8.0",
     "tslint-config-prettier": "^1.6.0",

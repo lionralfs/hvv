@@ -1,5 +1,5 @@
 import { HVVClient } from '../src';
-import { CoordinateType, SDType, ReturnCode } from '../src/enums';
+import { CoordinateType, ReturnCode, SDType } from '../src/enums';
 import { CNRequest } from '../src/request';
 jest.mock('../src/requests/checkname');
 
