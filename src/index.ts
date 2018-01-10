@@ -1,6 +1,7 @@
 import * as crypto from 'crypto';
-import { ReturnCode, SDType } from './enums';
+import { CoordinateType, SDType } from './enums';
 import { CNRequest } from './request';
+import checkname from './requests/checkname';
 import { CNResponse } from './response';
 
 export interface HVVClientInterface {
@@ -75,7 +76,6 @@ const defaultOptions: DefaultOptions = {
 export class HVVClient implements HVVClientInterface {
   constructor(private options: HVVClientOptions) {
     this.options = this.normalizeOptions(options);
-    console.log(this.options);
   }
 
   public init() {
@@ -83,29 +83,7 @@ export class HVVClient implements HVVClientInterface {
   }
 
   public checkName(req: CNRequest): Promise<CNResponse> {
-    return new Promise(resolve => {
-      const response: CNResponse = {
-        returnCode: ReturnCode.OK,
-        results: [
-          {
-            name: 'Christuskirche',
-            city: 'Hamburg',
-            combinedName: 'Christuskirche',
-            id: 'Master:84902',
-            type: SDType.STATION,
-            coordinate: {
-              x: 9.962371,
-              y: 53.569501
-            },
-            serviceTypes: ['u', 'bus'],
-            distance: 0,
-            time: 1000,
-            hasStationInformation: false
-          }
-        ]
-      };
-      resolve(response);
-    });
+    return checkname(req);
   }
 
   public getRoute() {
