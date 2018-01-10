@@ -1,4 +1,4 @@
-import { AttributeType, SDType } from './enums';
+import { AttributeType, ExtraFareType, SDType, TariffRegionType } from './enums';
 
 // TODO: some of these might be optional
 export interface SDName {
@@ -69,4 +69,37 @@ export interface TariffInfoSelector {
   tariff: string;
   tariffRegions: boolean;
   kinds: number[];
+}
+
+export interface TariffInfo {
+  tariffName: string;
+  tariffRegions: TariffRegionInfo[];
+  extraFareType: ExtraFareType;
+  ticketInfos: TicketInfo[];
+  ticketRemarks: string;
+}
+
+// TOOD: check if this is correct
+export interface TariffRegionInfo {
+  type: TariffRegionType;
+  list: TariffRegionList[];
+}
+
+export interface TariffRegionList {
+  regions: string[];
+}
+
+export interface TicketInfo {
+  tariffKindID: number;
+  tariffKindLabel: string;
+  tariffLevelID: number;
+  tariffLevelLabel: string;
+  tariffGroupID: number;
+  tariffGroupLabel: string;
+  basePrice: number;
+  extraFarePrice: number;
+  reducedBasePrice: number;
+  reducedExtraFarePrice: number;
+  currency: string;
+  regionType: TariffRegionType;
 }
