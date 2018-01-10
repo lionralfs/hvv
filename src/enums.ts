@@ -104,3 +104,11 @@ export enum RealtimeType {
   PLANDATA,
   AUTO
 }
+
+export enum ReturnCode {
+  OK,
+  ERROR_CN_TOO_MANY,
+  ERROR_COMM,
+  ERROR_ROUTE,
+  ERROR_TEXT
+}

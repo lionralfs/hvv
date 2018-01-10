@@ -8,7 +8,7 @@ export interface SDName {
   id: string;
   type: SDType;
   coordinate: Coordinate;
-  tariffDetails: TariffDetails;
+  tariffDetails?: TariffDetails;
   serviceTypes: string[];
   hasStationInformation: boolean;
 }
