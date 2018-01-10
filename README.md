@@ -2,6 +2,10 @@
 
 # Node.js API-wrapper for Public Transport in Hamburg
 
+[![Build Status][build-badge]][build]
+[![version][version-badge]][package]
+[![MIT License][license-badge]][license]
+
 ## Installation
 
 ```bash
@@ -108,3 +112,10 @@ Represents the clients platform.
 ## License
 
 [MIT](LICENSE) © Lion Ralfs
+
+[version-badge]: https://img.shields.io/npm/v/hvv.svg
+[package]: https://www.npmjs.com/package/hvv
+[license-badge]: https://img.shields.io/npm/l/hvv.svg
+[license]: https://github.com/lionralfs/hvv/blob/master/LICENSE
+[build]: https://travis-ci.org/lionralfs/hvv
+[build-badge]: https://travis-ci.org/lionralfs/hvv.svg?branch=master
