@@ -86,8 +86,8 @@ export enum ElevatorState {
 }
 
 export enum CoordinateType {
-  EPSG_4326,
-  EPSG_31467
+  EPSG_4326 = 'EPSG_4326',
+  EPSG_31467 = 'EPSG_31467'
 }
 
 export enum AttributeType {
