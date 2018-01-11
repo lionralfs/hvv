@@ -51,14 +51,16 @@ hvv
 
 You can initialize a new instance by calling `new HVVClient(HVVClientOptions)`. `HVVClientOptions` is an object with the following properties:
 
-#### user (required)
+#### user
 
+_Required_
 Type: `string`
 
 Represents `geofox-auth-user` header, provided by HBT GmbH.
 
-#### key (required)
+#### key
 
+_Required_
 Type: `string`
 
 Individual password, provided by HBT GmbH.
