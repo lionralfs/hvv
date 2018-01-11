@@ -53,14 +53,14 @@ You can initialize a new instance by calling `new HVVClient(HVVClientOptions)`. 
 
 #### user
 
-_Required_
+_Required_<br>
 Type: `string`
 
 Represents `geofox-auth-user` header, provided by HBT GmbH.
 
 #### key
 
-_Required_
+_Required_<br>
 Type: `string`
 
 Individual password, provided by HBT GmbH.
