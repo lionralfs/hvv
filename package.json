@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "typings": "dist/",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project .",
     "lint": "tslint -p tslint.json",
     "precommit": "lint-staged",
     "prepublishOnly": "npm run lint && npm run build",
@@ -55,7 +55,9 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
+    "@types/uuid": "^3.4.3",
     "request": "^2.83.0",
-    "request-promise": "^4.2.2"
+    "request-promise": "^4.2.2",
+    "uuid": "^3.1.0"
   }
 }

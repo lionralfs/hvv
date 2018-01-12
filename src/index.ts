@@ -1,4 +1,3 @@
-import * as crypto from 'crypto';
 import { CoordinateType, SDType } from './enums';
 import { CNRequest } from './request';
 import checkname from './requests/checkname';
@@ -141,14 +140,6 @@ export class HVVClient implements HVVClientInterface {
     }
     return normOpts;
   }
-
-  private signRequest(payload: object): string {
-    const hmac = crypto.createHmac('sha1', this.options.key);
-
-    hmac.update(JSON.stringify(payload));
-
-    return hmac.digest('base64');
-  }
 }
 
 const client = new HVVClient({
@@ -156,23 +147,27 @@ const client = new HVVClient({
   key: 'key'
 });
 
-client.checkName({
-  theName: {
-    name: 'Altona',
-    city: 'Hamburg',
-    combinedName: 'Altona',
-    id: 'ALTONAID123',
-    type: SDType.STATION,
-    coordinate: {
-      x: 9.962371,
-      y: 53.569501
+client
+  .checkName({
+    version: 31,
+    theName: {
+      name: 'Altona',
+      city: 'Hamburg',
+      combinedName: 'Altona',
+      id: 'ALTONAID123',
+      type: SDType.STATION,
+      coordinate: {
+        x: 9.962371,
+        y: 53.569501
+      },
+      serviceTypes: [],
+      hasStationInformation: false
     },
-    serviceTypes: [],
-    hasStationInformation: false
-  },
-  maxList: 1,
-  maxDistance: 1000,
-  coordinateType: CoordinateType.EPSG_4326,
-  tariffDetails: false,
-  allowTypeSwitch: false
-});
+    maxList: 1,
+    maxDistance: 1000,
+    coordinateType: CoordinateType.EPSG_4326,
+    tariffDetails: false,
+    allowTypeSwitch: false
+  })
+  .then(res => console.log(res))
+  .catch(e => console.log(e));
