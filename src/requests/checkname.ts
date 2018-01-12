@@ -19,14 +19,13 @@ export default (req: CNRequest, options: HVVClientOptions): Promise<CNResponse> 
       json: true
     })
       .then(res => {
-        // resolve({
-        //   returnCode: ReturnCode.OK,
-        //   results: []
-        // });
         switch (res.returnCode) {
           case ReturnCode.OK:
             resolve(res);
             break;
+          case ReturnCode.ERROR_CN_TOO_MANY:
+          case ReturnCode.ERROR_COMM:
+          case ReturnCode.ERROR_ROUTE:
           case ReturnCode.ERROR_TEXT:
             reject(res);
             break;
