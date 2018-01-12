@@ -1,9 +1,10 @@
 import * as request from 'request-promise';
 import { RequestError, StatusCodeError } from 'request-promise/errors';
 import { ReturnCode, SDType } from '../enums';
-import { HVVClientOptions } from '../index';
-import { CNRequest, generateHeaders, RequestHeaders, signRequest } from '../request';
-import { CNResponse } from '../response';
+import { HVVClientOptions } from '../hvvclient';
+import { generateHeaders, signRequest } from '../request';
+import { CNResponse } from '../responses/responsetypes';
+import { CNRequest } from './requesttypes';
 
 export default (req: CNRequest, options: HVVClientOptions): Promise<CNResponse> => {
   const signature = signRequest(req, options.key);
@@ -14,7 +15,6 @@ export default (req: CNRequest, options: HVVClientOptions): Promise<CNResponse> 
       uri: `${options.host}/gti/public/checkName`,
       method: 'POST',
       body: req,
-      // simple: false,
       headers,
       json: true
     })

@@ -1,6 +1,6 @@
 import { ReturnCode, SDType } from '../../enums';
-import { CNRequest } from '../../request';
-import { CNResponse } from '../../response';
+import { CNResponse } from '../../responses/responsetypes';
+import { CNRequest } from '../requesttypes';
 
 const response: CNResponse = {
   returnCode: ReturnCode.OK,

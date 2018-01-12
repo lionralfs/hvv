@@ -1,5 +1,5 @@
-import { ReturnCode } from './enums';
-import { RegionalSDName } from './othertypes';
+import { ReturnCode } from '../enums';
+import { RegionalSDName } from '../othertypes';
 
 export interface BaseResponseType {
   returnCode: ReturnCode;

@@ -6,11 +6,14 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
-    "declaration": true
+    "declaration": true,
+    "rootDir": "src",
+    "removeComments": false,
+    "forceConsistentCasingInFileNames": true,
+    "alwaysStrict": true
   },
   "include": [
-    "src",
-    "typings.d.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "**/__mocks__/*"

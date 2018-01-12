@@ -3,12 +3,13 @@
   "version": "0.0.1",
   "description": "Node.js wrapper for the HVV API",
   "main": "dist/index.js",
-  "typings": "dist/",
+  "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc --project .",
+    "build": "npm run cleanup && tsc --project .",
+    "cleanup": "rimraf dist/",
     "lint": "tslint -p tslint.json",
     "precommit": "lint-staged",
-    "prepublishOnly": "npm run lint && npm run build",
+    "prepublishOnly": "npm run lint && npm run test && npm run build",
     "test": "jest"
   },
   "lint-staged": {
@@ -45,17 +46,18 @@
     "@types/jest": "^22.0.1",
     "@types/node": "^9.3.0",
     "@types/request-promise": "^4.1.39",
+    "@types/uuid": "^3.4.3",
     "husky": "^0.14.3",
     "jest": "^22.0.5",
     "lint-staged": "^6.0.0",
     "prettier": "^1.10.1",
+    "rimraf": "^2.6.2",
     "ts-jest": "^22.0.1",
     "tslint": "^5.8.0",
     "tslint-config-prettier": "^1.6.0",
     "typescript": "^2.6.2"
   },
   "dependencies": {
-    "@types/uuid": "^3.4.3",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "uuid": "^3.1.0"
