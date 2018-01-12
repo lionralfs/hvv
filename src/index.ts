@@ -83,7 +83,7 @@ export class HVVClient implements HVVClientInterface {
   }
 
   public checkName(req: CNRequest): Promise<CNResponse> {
-    return checkname(req);
+    return checkname(req, this.options);
   }
 
   public getRoute() {
@@ -150,3 +150,29 @@ export class HVVClient implements HVVClientInterface {
     return hmac.digest('base64');
   }
 }
+
+const client = new HVVClient({
+  user: 'user',
+  key: 'key'
+});
+
+client.checkName({
+  theName: {
+    name: 'Altona',
+    city: 'Hamburg',
+    combinedName: 'Altona',
+    id: 'ALTONAID123',
+    type: SDType.STATION,
+    coordinate: {
+      x: 9.962371,
+      y: 53.569501
+    },
+    serviceTypes: [],
+    hasStationInformation: false
+  },
+  maxList: 1,
+  maxDistance: 1000,
+  coordinateType: CoordinateType.EPSG_4326,
+  tariffDetails: false,
+  allowTypeSwitch: false
+});

@@ -1,88 +1,88 @@
 export enum SDType {
-  STATION,
-  COORDINATE,
-  ADDRESS,
-  POI,
-  UNKNOWN
+  STATION = 'STATION',
+  COORDINATE = 'COORDINATE',
+  ADDRESS = 'ADDRESS',
+  POI = 'POI',
+  UNKNOWN = 'UNKNOWN'
 }
 
 export enum FilterType {
-  HVV_LISTED,
-  NO_FILTER
+  HVV_LISTED = 'HVV_LISTED',
+  NO_FILTER = 'NO_FILTER'
 }
 
 export enum SimpleServiceType {
-  BUS,
-  TRAIN,
-  SHIP,
-  FOOTPATH,
-  BICYCLE,
-  AIRPLANE,
-  CHANGE
+  BUS = 'BUS',
+  TRAIN = 'TRAIN',
+  SHIP = 'SHIP',
+  FOOTPATH = 'FOOTPATH',
+  BICYCLE = 'BICYCLE',
+  AIRPLANE = 'AIRPLANE',
+  CHANGE = 'CHANGE'
 }
 
 export enum TariffRegionType {
-  ZONE,
-  GH_ZONE,
-  RING,
-  COUNTY
+  ZONE = 'ZONE',
+  GH_ZONE = 'GH_ZONE',
+  RING = 'RING',
+  COUNTY = 'COUNTY'
 }
 
 export enum ExtraFareType {
-  NO,
-  POSSIBLE,
-  REQUIRED
+  NO = 'NO',
+  POSSIBLE = 'POSSIBLE',
+  REQUIRED = 'REQUIRED'
 }
 
 export enum RegionType {
-  ZONE,
-  GH_ZONE,
-  RING,
-  COUNTY
+  ZONE = 'ZONE',
+  GH_ZONE = 'GH_ZONE',
+  RING = 'RING',
+  COUNTY = 'COUNTY'
 }
 
 export enum SegmentSelector {
-  BEFORE,
-  AFTER,
-  ALL
+  BEFORE = 'BEFORE',
+  AFTER = 'AFTER',
+  ALL = 'ALL'
 }
 
 export enum ModificationType {
-  MAIN,
-  POSITION
+  MAIN = 'MAIN',
+  POSITION = 'POSITION'
 }
 
 export enum LineModificationType {
-  MAIN,
-  SEQUENCE
+  MAIN = 'MAIN',
+  SEQUENCE = 'SEQUENCE'
 }
 
 export enum VehicleType {
-  U_BAHN,
-  SCHNELLBUS,
-  SCHIFF,
-  NACHTBUS,
-  EILBUS,
-  AST
+  U_BAHN = 'U_BAHN',
+  SCHNELLBUS = 'SCHNELLBUS',
+  SCHIFF = 'SCHIFF',
+  NACHTBUS = 'NACHTBUS',
+  EILBUS = 'EILBUS',
+  AST = 'AST'
 }
 
 export enum AnnouncementFilterPlannedType {
-  ONLY_PLANNED,
-  ONLY_UNPLANNED,
-  NO_FILTER
+  ONLY_PLANNED = 'ONLY_PLANNED',
+  ONLY_UNPLANNED = 'ONLY_UNPLANNED',
+  NO_FILTER = 'NO_FILTER'
 }
 
 export enum ButtonType {
-  BRAILLE,
-  ACUSTIC,
-  COMBI,
-  UNKNOWN
+  BRAILLE = 'BRAILLE',
+  ACUSTIC = 'ACUSTIC',
+  COMBI = 'COMBI',
+  UNKNOWN = 'UNKNOWN'
 }
 
 export enum ElevatorState {
-  READY,
-  OUTOFORDER,
-  UNKNOWN
+  READY = 'READY',
+  OUTOFORDER = 'OUTOFORDER',
+  UNKNOWN = 'UNKNOWN'
 }
 
 export enum CoordinateType {
@@ -91,24 +91,24 @@ export enum CoordinateType {
 }
 
 export enum AttributeType {
-  NORMAL,
-  ANNOUNCEMENT,
-  TRAFFIC_JAM,
-  TECHNICAL_PROBLEM,
-  DISPOSITIVE_ACTION,
-  MISSING_UPDATE
+  NORMAL = 'NORMAL',
+  ANNOUNCEMENT = 'ANNOUNCEMENT',
+  TRAFFIC_JAM = 'TRAFFIC_JAM',
+  TECHNICAL_PROBLEM = 'TECHNICAL_PROBLEM',
+  DISPOSITIVE_ACTION = 'DISPOSITIVE_ACTION',
+  MISSING_UPDATE = 'MISSING_UPDATE'
 }
 
 export enum RealtimeType {
-  REALTIME,
-  PLANDATA,
-  AUTO
+  REALTIME = 'REALTIME',
+  PLANDATA = 'PLANDATA',
+  AUTO = 'AUTO'
 }
 
 export enum ReturnCode {
-  OK,
-  ERROR_CN_TOO_MANY,
-  ERROR_COMM,
-  ERROR_ROUTE,
-  ERROR_TEXT
+  OK = 'OK',
+  ERROR_CN_TOO_MANY = 'ERROR_CN_TOO_MANY',
+  ERROR_COMM = 'ERROR_COMM',
+  ERROR_ROUTE = 'ERROR_ROUTE',
+  ERROR_TEXT = 'ERROR_TEXT'
 }
