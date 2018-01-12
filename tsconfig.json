@@ -11,5 +11,8 @@
   "include": [
     "src",
     "typings.d.ts"
+  ],
+  "exclude": [
+    "**/__mocks__/*"
   ]
 }
