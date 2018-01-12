@@ -146,28 +146,3 @@ const client = new HVVClient({
   user: 'user',
   key: 'key'
 });
-
-client
-  .checkName({
-    version: 31,
-    theName: {
-      name: 'Altona',
-      city: 'Hamburg',
-      combinedName: 'Altona',
-      id: 'ALTONAID123',
-      type: SDType.STATION,
-      coordinate: {
-        x: 9.962371,
-        y: 53.569501
-      },
-      serviceTypes: [],
-      hasStationInformation: false
-    },
-    maxList: 1,
-    maxDistance: 1000,
-    coordinateType: CoordinateType.EPSG_4326,
-    tariffDetails: false,
-    allowTypeSwitch: false
-  })
-  .then(res => console.log(res))
-  .catch(e => console.log(e));
