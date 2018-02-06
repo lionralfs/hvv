@@ -11,7 +11,7 @@ export interface HVVClientInterface {
   departureList(): void;
   getTariff(): void;
   departureCourse(): void;
-  listStations(req: LSRequest): void;
+  listStations(req: LSRequest): Promise<LSResponse>;
   listLines(): void;
   getAnnouncements(): void;
   checkPostalCode(): void;
