@@ -1,10 +1,11 @@
 import { ReturnCode } from '../enums';
-import { RegionalSDName } from '../othertypes';
+import { RegionalSDName, StationListEntry } from '../othertypes';
 
 export interface BaseResponseType {
   returnCode: ReturnCode;
 }
 
+/** init Response */
 export interface InitResponse extends BaseResponseType {
   beginOfService?: string;
   endOfService?: string;
@@ -15,6 +16,13 @@ export interface InitResponse extends BaseResponseType {
   buildText?: string;
 }
 
+/** checkName Response */
 export interface CNResponse extends BaseResponseType {
   results: RegionalSDName[];
+}
+
+/** listStations Response */
+export interface LSResponse extends BaseResponseType {
+  dataReleaseID: string;
+  stations: StationListEntry[];
 }

@@ -3,16 +3,17 @@ import { RequestError, StatusCodeError } from 'request-promise/errors';
 import { ReturnCode } from '../enums';
 import { HVVClientOptions } from '../hvvclient';
 import { generateHeaders, signRequest } from '../request';
-import { InitResponse } from '../responses/responsetypes';
-import { BaseRequestType } from './requesttypes';
+import { LSResponse } from '../responses/responsetypes';
+import { LSRequest } from './requesttypes';
 
-export const init = (req: BaseRequestType, options: HVVClientOptions): Promise<InitResponse> => {
+export const listStations = (options: HVVClientOptions, req?: LSRequest): Promise<LSResponse> => {
+  req = req || {};
   const signature = signRequest(req, options.key);
   const headers = generateHeaders(options, signature);
 
-  return new Promise<InitResponse>((resolve, reject) => {
+  return new Promise<LSResponse>((resolve, reject) => {
     request({
-      uri: `${options.host}/gti/public/init`,
+      uri: `${options.host}/gti/public/listStations`,
       method: 'POST',
       body: req,
       headers,
@@ -24,7 +25,7 @@ export const init = (req: BaseRequestType, options: HVVClientOptions): Promise<I
   });
 };
 
-const normalizeResponse = (res: any, resolve: (value: InitResponse) => void, reject: (reason: any) => void): void => {
+const normalizeResponse = (res: any, resolve: (value: LSResponse) => void, reject: (reason: any) => void): void => {
   switch (res.returnCode) {
     case ReturnCode.OK:
       resolve(res);

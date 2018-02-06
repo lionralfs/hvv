@@ -1,16 +1,15 @@
-import { AttributeType, ExtraFareType, SDType, TariffRegionType } from './enums';
+import { AttributeType, ExtraFareType, SDType, TariffRegionType, VehicleType } from './enums';
 
-// TODO: some of these might be optional
 export interface SDName {
   name: string;
-  city: string;
-  combinedName: string;
-  id: string;
-  type: SDType;
-  coordinate: Coordinate;
+  city?: string;
+  combinedName?: string;
+  id?: string;
+  type?: SDType;
+  coordinate?: Coordinate;
   tariffDetails?: TariffDetails;
-  serviceTypes: string[];
-  hasStationInformation: boolean;
+  serviceTypes?: string[];
+  hasStationInformation?: boolean;
 }
 
 export interface RegionalSDName extends SDName {
@@ -102,4 +101,16 @@ export interface TicketInfo {
   reducedExtraFarePrice: number;
   currency: string;
   regionType: TariffRegionType;
+}
+
+export interface StationListEntry {
+  id: string;
+  name: string;
+  city: string;
+  combinedName: string;
+  shortcuts: string[];
+  aliasses: string[];
+  vehicleTypes: VehicleType[];
+  coordinate: Coordinate;
+  exists: boolean;
 }

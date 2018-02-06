@@ -1,7 +1,8 @@
 import { CoordinateType, SDType } from './enums';
-import checkname from './requests/checkname';
-import { CNRequest } from './requests/requesttypes';
-import { CNResponse } from './responses/responsetypes';
+import { checkName } from './requests/checkname';
+import { listStations } from './requests/liststations';
+import { CNRequest, LSRequest } from './requests/requesttypes';
+import { CNResponse, LSResponse } from './responses/responsetypes';
 
 export interface HVVClientInterface {
   init(): void;
@@ -10,7 +11,7 @@ export interface HVVClientInterface {
   departureList(): void;
   getTariff(): void;
   departureCourse(): void;
-  listStations(): void;
+  listStations(req: LSRequest): void;
   listLines(): void;
   getAnnouncements(): void;
   checkPostalCode(): void;
@@ -30,7 +31,7 @@ export interface HVVClientOptions {
   key: string;
   /**
    * The API Host address.
-   * Default: http://api-test.geofox.de
+   * Default: https://api-test.geofox.de
    */
   host?: string;
   /**
@@ -69,7 +70,7 @@ interface DefaultOptions {
 const defaultOptions: DefaultOptions = {
   contentType: 'application/json',
   accept: 'application/json',
-  host: 'http://api-test.geofox.de'
+  host: 'https://api-test.geofox.de'
 };
 
 export default class HVVClient implements HVVClientInterface {
@@ -82,7 +83,7 @@ export default class HVVClient implements HVVClientInterface {
   }
 
   public checkName(req: CNRequest): Promise<CNResponse> {
-    return checkname(req, this.options);
+    return checkName(this.options, req);
   }
 
   public getRoute() {
@@ -101,8 +102,8 @@ export default class HVVClient implements HVVClientInterface {
     console.log('I am not implemented yet');
   }
 
-  public listStations() {
-    console.log('I am not implemented yet');
+  public listStations(req?: LSRequest): Promise<LSResponse> {
+    return listStations(this.options, req);
   }
 
   public listLines() {

@@ -1,4 +1,4 @@
-import { CoordinateType, FilterType, RealtimeType, SimpleServiceType } from '../enums';
+import { CoordinateType, FilterType, ModificationType, RealtimeType, SimpleServiceType } from '../enums';
 import { ContSearchByServiceId, GTITime, SDName, TariffInfoSelector } from '../othertypes';
 import { PenaltyInterface } from '../penalties';
 
@@ -20,18 +20,17 @@ export interface BaseRequestType {
   filterType?: FilterType;
 }
 
-// checkName Request
-// TODO: some of these might be optional
+/** checkName Request */
 export interface CNRequest extends BaseRequestType {
   theName: SDName;
-  maxList: number;
-  maxDistance: number;
-  coordinateType: CoordinateType;
-  tariffDetails: boolean;
-  allowTypeSwitch: boolean;
+  maxList?: number;
+  maxDistance?: number;
+  coordinateType?: CoordinateType;
+  tariffDetails?: boolean;
+  allowTypeSwitch?: boolean;
 }
 
-// getRoute Request
+/** getRoute Request */
 export interface GRRequest extends BaseRequestType {
   start: SDName;
   dest: SDName;
@@ -57,4 +56,12 @@ export interface GRRequest extends BaseRequestType {
   toStartBy?: SimpleServiceType;
   toDestBy?: SimpleServiceType;
   returnContSearchData?: boolean;
+}
+
+/** listStations Request */
+export interface LSRequest extends BaseRequestType {
+  dataReleaseID?: string;
+  modificationTypes?: ModificationType[];
+  coordinateType?: CoordinateType;
+  filterEquivalent?: boolean;
 }

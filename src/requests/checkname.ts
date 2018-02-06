@@ -6,7 +6,7 @@ import { generateHeaders, signRequest } from '../request';
 import { CNResponse } from '../responses/responsetypes';
 import { CNRequest } from './requesttypes';
 
-export default (req: CNRequest, options: HVVClientOptions): Promise<CNResponse> => {
+export const checkName = (options: HVVClientOptions, req: CNRequest): Promise<CNResponse> => {
   const signature = signRequest(req, options.key);
   const headers = generateHeaders(options, signature);
 
