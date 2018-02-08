@@ -13,7 +13,7 @@
     "test": "jest"
   },
   "lint-staged": {
-    "*.ts": [
+    "src/*.ts": [
       "tslint -p .",
       "prettier --write",
       "git add"

@@ -11,17 +11,12 @@ jest.mock('request-promise', () =>
           {
             name: 'Altona',
             city: 'Hamburg',
-            combinedName: 'Christuskirche',
-            id: 'Master:84902',
+            id: 'Master:80953',
             type: 'STATION',
             coordinate: {
-              x: 9.962371,
-              y: 53.569501
-            },
-            serviceTypes: ['u', 'bus'],
-            distance: 0,
-            time: 1000,
-            hasStationInformation: false
+              x: 9.934376,
+              y: 53.551968
+            }
           }
         ]
       };
@@ -42,23 +37,8 @@ const client = new HVVClient({
 
 const baseRequest: CNRequest = {
   theName: {
-    name: 'Altona',
-    city: 'Hamburg',
-    combinedName: 'Altona',
-    id: 'ALTONAID123',
-    type: SDType.STATION,
-    coordinate: {
-      x: 9.962371,
-      y: 53.569501
-    },
-    serviceTypes: [],
-    hasStationInformation: false
-  },
-  maxList: 1,
-  maxDistance: 1000,
-  coordinateType: CoordinateType.EPSG_4326,
-  tariffDetails: false,
-  allowTypeSwitch: false
+    name: 'Altona'
+  }
 };
 
 describe('#checkName()', () => {

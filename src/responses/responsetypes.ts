@@ -1,5 +1,5 @@
 import { ReturnCode } from '../enums';
-import { RegionalSDName, StationListEntry } from '../othertypes';
+import { Announcement, RegionalSDName, StationListEntry } from '../othertypes';
 
 export interface BaseResponseType {
   returnCode: ReturnCode;
@@ -25,4 +25,10 @@ export interface CNResponse extends BaseResponseType {
 export interface LSResponse extends BaseResponseType {
   dataReleaseID: string;
   stations: StationListEntry[];
+}
+
+/** getAnnouncements Response */
+export interface AnnouncementResponse extends BaseResponseType {
+  announcements: Announcement[];
+  lastUpdate: string; // TODO
 }

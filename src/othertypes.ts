@@ -1,4 +1,5 @@
-import { AttributeType, ExtraFareType, SDType, TariffRegionType, VehicleType } from './enums';
+import { AnnouncementReason, AttributeType, ExtraFareType, SDType, TariffRegionType, VehicleType } from './enums';
+import { TimeRange } from './penalties';
 
 export interface SDName {
   name: string;
@@ -113,4 +114,31 @@ export interface StationListEntry {
   vehicleTypes: VehicleType[];
   coordinate: Coordinate;
   exists: boolean;
+}
+
+export interface Link {
+  label: string;
+  url: string;
+}
+
+export interface Location {
+  type: string; // TODO
+  name: string;
+  line: string; // TODO
+  begin: SDName;
+  end: SDName;
+  bothDirections: boolean;
+}
+
+export interface Announcement {
+  id: string;
+  location: Location[];
+  summary: string;
+  description: string;
+  links: Link[];
+  publication: TimeRange;
+  validities: TimeRange[];
+  lastModified: string; // TODO
+  planned: boolean;
+  reason: AnnouncementReason;
 }

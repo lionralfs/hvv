@@ -1,11 +1,13 @@
 import { CoordinateType, SDType } from './enums';
 import { checkName } from './requests/checkname';
+import { init } from './requests/init';
 import { listStations } from './requests/liststations';
-import { CNRequest, LSRequest } from './requests/requesttypes';
-import { CNResponse, LSResponse } from './responses/responsetypes';
+import { AnnouncementRequest, CNRequest, LSRequest } from './requests/requesttypes';
+import { AnnouncementResponse, CNResponse, InitResponse, LSResponse } from './responses/responsetypes';
+import { getAnnouncements } from './requests/getannouncements';
 
 export interface HVVClientInterface {
-  init(): void;
+  init(): Promise<InitResponse>;
   checkName(req: CNRequest): Promise<CNResponse>;
   getRoute(): void;
   departureList(): void;
@@ -13,11 +15,12 @@ export interface HVVClientInterface {
   departureCourse(): void;
   listStations(req: LSRequest): Promise<LSResponse>;
   listLines(): void;
-  getAnnouncements(): void;
+  getAnnouncements(req: AnnouncementRequest): Promise<AnnouncementResponse>;
   checkPostalCode(): void;
   getVehicleMap(): void;
   getTrackCoordinates(): void;
   getIndividualRoute(): void;
+  getStationInformation(): void;
 }
 
 export interface HVVClientOptions {
@@ -74,59 +77,108 @@ const defaultOptions: DefaultOptions = {
 };
 
 export default class HVVClient implements HVVClientInterface {
+  /**
+   * Creates a new HVVClient instance
+   */
   constructor(private options: HVVClientOptions) {
     this.options = this.normalizeOptions(options);
   }
 
+  /**
+   * Returns some server status informations (schedule validity, data version, program version, ...)
+   */
   public init() {
-    console.log('I am not implemented yet');
+    return init({}, this.options);
   }
 
+  /**
+   * Verifies the user input and returns a list of possible unique places for that input
+   */
   public checkName(req: CNRequest): Promise<CNResponse> {
     return checkName(this.options, req);
   }
 
+  /**
+   * Calculates a route for the given parameters
+   */
   public getRoute() {
     console.log('I am not implemented yet');
   }
 
+  /**
+   * Returns a list of journeys departing or arriving at the given station
+   */
   public departureList() {
     console.log('I am not implemented yet');
   }
 
+  /**
+   * Calculates detailed tariff informations for the given route
+   */
   public getTariff() {
     console.log('I am not implemented yet');
   }
 
+  /**
+   * Returns the course of a given journey with stations and times
+   */
   public departureCourse() {
     console.log('I am not implemented yet');
   }
 
+  /**
+   * Returns a list of stations
+   */
   public listStations(req?: LSRequest): Promise<LSResponse> {
     return listStations(this.options, req);
   }
 
+  /**
+   * Returns a list of lines
+   */
   public listLines() {
     console.log('I am not implemented yet');
   }
 
-  public getAnnouncements() {
-    console.log('I am not implemented yet');
+  /**
+   * Returns a list schedule variance announcements
+   */
+  public getAnnouncements(req: AnnouncementRequest) {
+    return getAnnouncements(req, this.options);
   }
 
+  /**
+   * Returns a whether a postal code belongs to the HVV service area
+   */
   public checkPostalCode() {
     console.log('I am not implemented yet');
   }
 
+  /**
+   * Returns the necessary information to display current journeys on a map
+   */
   public getVehicleMap() {
     console.log('I am not implemented yet');
   }
 
+  /**
+   * Returns a coordinates of a journey course
+   */
   public getTrackCoordinates() {
     console.log('I am not implemented yet');
   }
 
+  /**
+   * Calculates a route with individual traffic (on foot, by bike, ...)
+   */
   public getIndividualRoute() {
+    console.log('I am not implemented yet');
+  }
+
+  /**
+   * Returns additional information about a station
+   */
+  public getStationInformation() {
     console.log('I am not implemented yet');
   }
 

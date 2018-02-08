@@ -1,6 +1,13 @@
-import { CoordinateType, FilterType, ModificationType, RealtimeType, SimpleServiceType } from '../enums';
+import {
+  CoordinateType,
+  FilterType,
+  ModificationType,
+  RealtimeType,
+  SimpleServiceType,
+  AnnouncementFilterPlannedType
+} from '../enums';
 import { ContSearchByServiceId, GTITime, SDName, TariffInfoSelector } from '../othertypes';
-import { PenaltyInterface } from '../penalties';
+import { PenaltyInterface, TimeRange } from '../penalties';
 
 export interface RequestHeaders {
   'Content-Type': string;
@@ -19,6 +26,9 @@ export interface BaseRequestType {
   language?: 'de' | 'en';
   filterType?: FilterType;
 }
+
+// tslint:disable-next-line
+export interface InitRequest extends BaseRequestType {}
 
 /** checkName Request */
 export interface CNRequest extends BaseRequestType {
@@ -64,4 +74,12 @@ export interface LSRequest extends BaseRequestType {
   modificationTypes?: ModificationType[];
   coordinateType?: CoordinateType;
   filterEquivalent?: boolean;
+}
+
+/** getAnnouncements Request */
+export interface AnnouncementRequest extends BaseRequestType {
+  names?: string[];
+  timeRange?: TimeRange;
+  full?: boolean;
+  filterPlanned?: AnnouncementFilterPlannedType;
 }

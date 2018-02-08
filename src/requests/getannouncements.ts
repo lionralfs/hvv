@@ -3,16 +3,19 @@ import { RequestError, StatusCodeError } from 'request-promise/errors';
 import { ReturnCode } from '../enums';
 import { HVVClientOptions } from '../hvvclient';
 import { generateHeaders, signRequest } from '../request';
-import { InitResponse } from '../responses/responsetypes';
-import { BaseRequestType, InitRequest } from './requesttypes';
+import { AnnouncementResponse } from '../responses/responsetypes';
+import { AnnouncementRequest } from './requesttypes';
 
-export const init = (req: InitRequest, options: HVVClientOptions): Promise<InitResponse> => {
+export const getAnnouncements = (
+  req: AnnouncementRequest,
+  options: HVVClientOptions
+): Promise<AnnouncementResponse> => {
   const signature = signRequest(req, options.key);
   const headers = generateHeaders(options, signature);
 
-  return new Promise<InitResponse>((resolve, reject) => {
+  return new Promise<AnnouncementResponse>((resolve, reject) => {
     request({
-      uri: `${options.host}/gti/public/init`,
+      uri: `${options.host}/gti/public/getAnnouncements`,
       method: 'POST',
       body: req,
       headers,
@@ -24,7 +27,11 @@ export const init = (req: InitRequest, options: HVVClientOptions): Promise<InitR
   });
 };
 
-const normalizeResponse = (res: any, resolve: (value: InitResponse) => void, reject: (reason: any) => void): void => {
+const normalizeResponse = (
+  res: any,
+  resolve: (value: AnnouncementResponse) => void,
+  reject: (reason: any) => void
+): void => {
   switch (res.returnCode) {
     case ReturnCode.OK:
       resolve(res);
