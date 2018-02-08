@@ -30,5 +30,5 @@ export interface LSResponse extends BaseResponseType {
 /** getAnnouncements Response */
 export interface AnnouncementResponse extends BaseResponseType {
   announcements: Announcement[];
-  lastUpdate: string; // TODO
+  lastUpdate: string;
 }

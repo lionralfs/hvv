@@ -1,4 +1,12 @@
-import { AnnouncementReason, AttributeType, ExtraFareType, SDType, TariffRegionType, VehicleType } from './enums';
+import {
+  AnnouncementReason,
+  AttributeType,
+  ExtraFareType,
+  SDType,
+  TariffRegionType,
+  VehicleType,
+  LocationType
+} from './enums';
 import { TimeRange } from './penalties';
 
 export interface SDName {
@@ -121,10 +129,18 @@ export interface Link {
   url: string;
 }
 
-export interface Location {
-  type: string; // TODO
+export interface Service {
   name: string;
-  line: string; // TODO
+  direction: string;
+  origin: string;
+  type: string;
+  id: string;
+}
+
+export interface Location {
+  type: LocationType;
+  name: string;
+  line: Service;
   begin: SDName;
   end: SDName;
   bothDirections: boolean;
@@ -132,13 +148,13 @@ export interface Location {
 
 export interface Announcement {
   id: string;
-  location: Location[];
+  locations: Location[];
   summary: string;
   description: string;
   links: Link[];
   publication: TimeRange;
   validities: TimeRange[];
-  lastModified: string; // TODO
+  lastModified: string;
   planned: boolean;
   reason: AnnouncementReason;
 }

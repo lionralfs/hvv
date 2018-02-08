@@ -133,3 +133,9 @@ export enum AnnouncementReason {
   ROUTE_BLOCKAGE = 'ROUTE_BLOCKAGE',
   ROUGH_SEA = 'ROUGH_SEA'
 }
+
+export enum LocationType {
+  SINGLE_LINE = 'SINGLE_LINE',
+  ALL_LINES_OF_CARRIER = 'ALL_LINES_OF_CARRIER',
+  COMPLETE_NET = 'COMPLETE_NET'
+}
