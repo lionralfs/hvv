@@ -21,65 +21,8 @@ export interface RequestHeaders {
   'User-Agent'?: string;
 }
 
-export interface BaseRequestType {
+export interface BaseRequest {
   version?: number;
   language?: 'de' | 'en';
   filterType?: FilterType;
-}
-
-// tslint:disable-next-line
-export interface InitRequest extends BaseRequestType {}
-
-/** checkName Request */
-export interface CNRequest extends BaseRequestType {
-  theName: SDName;
-  maxList?: number;
-  maxDistance?: number;
-  coordinateType?: CoordinateType;
-  tariffDetails?: boolean;
-  allowTypeSwitch?: boolean;
-}
-
-/** getRoute Request */
-export interface GRRequest extends BaseRequestType {
-  start: SDName;
-  dest: SDName;
-  via?: SDName;
-  time?: GTITime;
-  timeIsDeparture?: boolean;
-  numberOfSchedules?: number;
-  tariffDetails?: boolean;
-  continousSearch?: boolean;
-  contSearchByServiceId?: ContSearchByServiceId;
-  coordinateType?: CoordinateType;
-  schedulesBefore?: number;
-  schedulesAfter?: number;
-  returnReduced?: boolean;
-  tariffInfoSelector?: TariffInfoSelector[];
-  penalties?: PenaltyInterface[];
-  returnPartialTickets?: boolean;
-  realtime?: RealtimeType;
-  intermediateStops?: boolean;
-  useStationPosition?: boolean;
-  forcedStart?: SDName;
-  forcedDest?: SDName;
-  toStartBy?: SimpleServiceType;
-  toDestBy?: SimpleServiceType;
-  returnContSearchData?: boolean;
-}
-
-/** listStations Request */
-export interface LSRequest extends BaseRequestType {
-  dataReleaseID?: string;
-  modificationTypes?: ModificationType[];
-  coordinateType?: CoordinateType;
-  filterEquivalent?: boolean;
-}
-
-/** getAnnouncements Request */
-export interface AnnouncementRequest extends BaseRequestType {
-  names?: string[];
-  timeRange?: TimeRange;
-  full?: boolean;
-  filterPlanned?: AnnouncementFilterPlannedType;
 }

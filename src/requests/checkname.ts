@@ -1,15 +1,22 @@
 import * as request from 'request-promise';
 import { RequestError, StatusCodeError } from 'request-promise/errors';
-import { ReturnCode, SDType } from '../enums';
+import { ReturnCode, SDType, CoordinateType } from '../enums';
 import { HVVClientOptions } from '../hvvclient';
-import { generateHeaders, signRequest } from '../request';
+import { generateHeaders } from '../request';
 import { CNResponse } from '../responses/responsetypes';
-import { CNRequest } from './requesttypes';
+import { BaseRequest, RequestHeaders } from './requesttypes';
+import { SDName } from '../othertypes';
 
-export const checkName = (options: HVVClientOptions, req: CNRequest): Promise<CNResponse> => {
-  const signature = signRequest(req, options.key);
-  const headers = generateHeaders(options, signature);
+export interface CNRequest extends BaseRequest {
+  theName: SDName;
+  maxList?: number;
+  maxDistance?: number;
+  coordinateType?: CoordinateType;
+  tariffDetails?: boolean;
+  allowTypeSwitch?: boolean;
+}
 
+export const checkName = (headers: RequestHeaders, options: HVVClientOptions, req: CNRequest): Promise<CNResponse> => {
   return new Promise<CNResponse>((resolve, reject) => {
     request({
       uri: `${options.host}/gti/public/checkName`,

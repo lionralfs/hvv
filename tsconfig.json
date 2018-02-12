@@ -12,10 +12,6 @@
     "forceConsistentCasingInFileNames": true,
     "alwaysStrict": true
   },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "**/__mocks__/*"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/__mocks__/*"]
 }

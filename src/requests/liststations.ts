@@ -1,16 +1,23 @@
 import * as request from 'request-promise';
 import { RequestError, StatusCodeError } from 'request-promise/errors';
-import { ReturnCode } from '../enums';
+import { ReturnCode, ModificationType, CoordinateType } from '../enums';
 import { HVVClientOptions } from '../hvvclient';
-import { generateHeaders, signRequest } from '../request';
+import { generateHeaders } from '../request';
 import { LSResponse } from '../responses/responsetypes';
-import { LSRequest } from './requesttypes';
+import { BaseRequest, RequestHeaders } from './requesttypes';
 
-export const listStations = (options: HVVClientOptions, req?: LSRequest): Promise<LSResponse> => {
-  req = req || {};
-  const signature = signRequest(req, options.key);
-  const headers = generateHeaders(options, signature);
+export interface LSRequest extends BaseRequest {
+  dataReleaseID?: string;
+  modificationTypes?: ModificationType[];
+  coordinateType?: CoordinateType;
+  filterEquivalent?: boolean;
+}
 
+export const listStations = (
+  headers: RequestHeaders,
+  options: HVVClientOptions,
+  req: LSRequest
+): Promise<LSResponse> => {
   return new Promise<LSResponse>((resolve, reject) => {
     request({
       uri: `${options.host}/gti/public/listStations`,

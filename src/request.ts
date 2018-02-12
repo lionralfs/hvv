@@ -7,15 +7,15 @@ import { CoordinateType, FilterType, RealtimeType, SimpleServiceType } from './e
 import { HVVClientOptions } from './hvvclient';
 import { ContSearchByServiceId, GTITime, SDName, TariffInfoSelector } from './othertypes';
 import { PenaltyInterface } from './penalties';
-import { BaseRequestType, RequestHeaders } from './requests/requesttypes';
+import { RequestHeaders, BaseRequest } from './requests/requesttypes';
 
 /**
  * Encrypts the payload via an RFC2104 HMAC (SHA1) and base64 encoding
- * @param {BaseRequestType} payload The request body to encrypt
- * @param {string} key The (private) key to encrypt with
- * @return {string} The encrypted message
+ * @param payload The request body to encrypt
+ * @param key The (private) key to encrypt with
+ * @return The encrypted message
  */
-export const signRequest = (payload: BaseRequestType, key: string): string => {
+const signRequest = (payload: BaseRequest, key: string): string => {
   const hmac = crypto.createHmac('sha1', key);
 
   hmac.update(JSON.stringify(payload));
@@ -24,12 +24,13 @@ export const signRequest = (payload: BaseRequestType, key: string): string => {
 };
 
 /**
- * Generates all HTTP headers for a request
- * @param {HVVClientOptions} options
- * @param {string} signature
- * @return {RequestHeaders}
+ * Generates all HTTP headers for a given request
+ * @param options The options containing the `key`, `Content-Type`, etc
+ * @param payload The request body
+ * @return
  */
-export const generateHeaders = (options: HVVClientOptions, signature: string): RequestHeaders => {
+export const generateHeaders = (options: HVVClientOptions, payload: BaseRequest): RequestHeaders => {
+  const signature = signRequest(payload, options.key);
   const headers: RequestHeaders = {
     'Content-Type': `${options.contentType};charset=UTF-8`,
     Accept: options.accept,

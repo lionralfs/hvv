@@ -1,15 +1,16 @@
 import { CoordinateType, SDType } from './enums';
-import { checkName } from './requests/checkname';
-import { init } from './requests/init';
-import { listStations } from './requests/liststations';
-import { AnnouncementRequest, CNRequest, LSRequest } from './requests/requesttypes';
+import { checkName, CNRequest } from './requests/checkname';
+import { init, InitRequest } from './requests/init';
+import { listStations, LSRequest } from './requests/liststations';
 import { AnnouncementResponse, CNResponse, InitResponse, LSResponse } from './responses/responsetypes';
-import { getAnnouncements } from './requests/getannouncements';
+import { getAnnouncements, AnnouncementRequest } from './requests/getannouncements';
+import { GRRequest, getRoute, GRResponse } from './requests/getroute';
+import { generateHeaders } from './request';
 
 export interface HVVClientInterface {
-  init(): Promise<InitResponse>;
+  init(req: InitRequest): Promise<InitResponse>;
   checkName(req: CNRequest): Promise<CNResponse>;
-  getRoute(): void;
+  getRoute(req: GRRequest): Promise<GRResponse>;
   departureList(): void;
   getTariff(): void;
   departureCourse(): void;
@@ -87,22 +88,25 @@ export default class HVVClient implements HVVClientInterface {
   /**
    * Returns some server status informations (schedule validity, data version, program version, ...)
    */
-  public init() {
-    return init({}, this.options);
+  public init(req: InitRequest) {
+    const headers = generateHeaders(this.options, req);
+    return init(headers, this.options, req);
   }
 
   /**
    * Verifies the user input and returns a list of possible unique places for that input
    */
   public checkName(req: CNRequest): Promise<CNResponse> {
-    return checkName(this.options, req);
+    const headers = generateHeaders(this.options, req);
+    return checkName(headers, this.options, req);
   }
 
   /**
    * Calculates a route for the given parameters
    */
-  public getRoute() {
-    console.log('I am not implemented yet');
+  public getRoute(req: GRRequest): Promise<GRResponse> {
+    const headers = generateHeaders(this.options, req);
+    return getRoute(headers, this.options, req);
   }
 
   /**
@@ -130,7 +134,9 @@ export default class HVVClient implements HVVClientInterface {
    * Returns a list of stations
    */
   public listStations(req?: LSRequest): Promise<LSResponse> {
-    return listStations(this.options, req);
+    const reqObj = req || {};
+    const headers = generateHeaders(this.options, reqObj);
+    return listStations(headers, this.options, reqObj);
   }
 
   /**
@@ -144,7 +150,8 @@ export default class HVVClient implements HVVClientInterface {
    * Returns a list schedule variance announcements
    */
   public getAnnouncements(req: AnnouncementRequest) {
-    return getAnnouncements(req, this.options);
+    const headers = generateHeaders(this.options, req);
+    return getAnnouncements(headers, this.options, req);
   }
 
   /**

@@ -2,14 +2,19 @@ import * as request from 'request-promise';
 import { RequestError, StatusCodeError } from 'request-promise/errors';
 import { ReturnCode } from '../enums';
 import { HVVClientOptions } from '../hvvclient';
-import { generateHeaders, signRequest } from '../request';
 import { InitResponse } from '../responses/responsetypes';
-import { BaseRequestType, InitRequest } from './requesttypes';
+import { BaseRequest, RequestHeaders } from './requesttypes';
 
-export const init = (req: InitRequest, options: HVVClientOptions): Promise<InitResponse> => {
-  const signature = signRequest(req, options.key);
-  const headers = generateHeaders(options, signature);
+// tslint:disable-next-line
+export interface InitRequest extends BaseRequest {}
 
+/**
+ * `/init` request
+ * @param req
+ * @param headers
+ * @param options
+ */
+export const init = (headers: RequestHeaders, options: HVVClientOptions, req: InitRequest): Promise<InitResponse> => {
   return new Promise<InitResponse>((resolve, reject) => {
     request({
       uri: `${options.host}/gti/public/init`,

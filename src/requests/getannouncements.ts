@@ -1,18 +1,24 @@
 import * as request from 'request-promise';
 import { RequestError, StatusCodeError } from 'request-promise/errors';
-import { ReturnCode } from '../enums';
+import { ReturnCode, AnnouncementFilterPlannedType } from '../enums';
 import { HVVClientOptions } from '../hvvclient';
-import { generateHeaders, signRequest } from '../request';
+import { generateHeaders } from '../request';
 import { AnnouncementResponse } from '../responses/responsetypes';
-import { AnnouncementRequest } from './requesttypes';
+import { BaseRequest, RequestHeaders } from './requesttypes';
+import { TimeRange } from '../penalties';
+
+export interface AnnouncementRequest extends BaseRequest {
+  names?: string[];
+  timeRange?: TimeRange;
+  full?: boolean;
+  filterPlanned?: AnnouncementFilterPlannedType;
+}
 
 export const getAnnouncements = (
-  req: AnnouncementRequest,
-  options: HVVClientOptions
+  headers: RequestHeaders,
+  options: HVVClientOptions,
+  req: AnnouncementRequest
 ): Promise<AnnouncementResponse> => {
-  const signature = signRequest(req, options.key);
-  const headers = generateHeaders(options, signature);
-
   return new Promise<AnnouncementResponse>((resolve, reject) => {
     request({
       uri: `${options.host}/gti/public/getAnnouncements`,
