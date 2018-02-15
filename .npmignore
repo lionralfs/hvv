@@ -1,2 +1,8 @@
 src/
-.vscode
+test/
+.vscode/
+.prettierignore
+.prettierrc
+.travis.yml
+tsconfig.json
+tslint.json
