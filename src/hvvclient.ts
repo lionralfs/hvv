@@ -1,7 +1,7 @@
 import { CoordinateType, SDType } from './enums';
 import { checkName, CNRequest } from './requests/checkname';
 import { init, InitRequest } from './requests/init';
-import { listStations, LSRequest } from './requests/liststations';
+import { listStations, LSRequest, LSCustomOptions } from './requests/liststations';
 import { AnnouncementResponse, CNResponse, InitResponse, LSResponse } from './responses/responsetypes';
 import { getAnnouncements, AnnouncementRequest } from './requests/getannouncements';
 import { GRRequest, getRoute, GRResponse } from './requests/getroute';
@@ -133,10 +133,11 @@ export default class HVVClient implements HVVClientInterface {
   /**
    * Returns a list of stations
    */
-  public listStations(req?: LSRequest): Promise<LSResponse> {
+  public listStations(req?: LSRequest, custom?: LSCustomOptions): Promise<LSResponse> {
     const reqObj = req || {};
+    const customObj = custom || {};
     const headers = generateHeaders(this.options, reqObj);
-    return listStations(headers, this.options, reqObj);
+    return listStations(headers, this.options, reqObj, customObj);
   }
 
   /**
