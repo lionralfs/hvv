@@ -14,35 +14,15 @@ npm install hvv
 
 ## Usage
 
-<table>
-<tr>
-<td>
-  <b>JavaScript</b>
-   <pre lang="js">
-const { HVVClient } = require('hvv');
-   </pre>
-</td>
-<td>
-  <b>TypeScript</b>
-  <pre lang="typescript">
-import { HVVClient } from 'hvv';
-  </pre>
-</td>
-</tr>
-</table>
-
 ```js
+import { HVVClient } from 'hvv';
+
 const hvv = new HVVClient({
   key: 'secret',
   user: 'user'
 });
 
-hvv
-  .getRoute({
-    start: '...',
-    dest: '...'
-  })
-  .then(result => console.log(result));
+hvv.getRoute({ start: { name: '...' }, dest: { name: '...' } }).then(result => console.log(result));
 ```
 
 ## Documentation
