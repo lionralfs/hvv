@@ -2,12 +2,14 @@
 const { version } = require('../package.json');
 
 import * as crypto from 'crypto';
+import * as request from 'request-promise';
 import { v4 as UUIDv4 } from 'uuid';
 import { CoordinateType, FilterType, RealtimeType, SimpleServiceType } from './enums';
 import { HVVClientOptions } from './hvvclient';
 import { ContSearchByServiceId, GTITime, SDName, TariffInfoSelector } from './othertypes';
 import { PenaltyInterface } from './penalties';
 import { RequestHeaders, BaseRequest } from './requests/requesttypes';
+import { StatusCodeError, RequestError } from 'request-promise/errors';
 
 /**
  * Encrypts the payload via an RFC2104 HMAC (SHA1) and base64 encoding
@@ -29,7 +31,7 @@ const signRequest = (payload: BaseRequest, key: string): string => {
  * @param payload The request body
  * @return
  */
-export const generateHeaders = (options: HVVClientOptions, payload: BaseRequest): RequestHeaders => {
+const generateHeaders = (options: HVVClientOptions, payload: BaseRequest): RequestHeaders => {
   const signature = signRequest(payload, options.key);
   const headers: RequestHeaders = {
     'Content-Type': `${options.contentType};charset=UTF-8`,
@@ -43,10 +45,38 @@ export const generateHeaders = (options: HVVClientOptions, payload: BaseRequest)
 
   if (options.acceptEncoding) {
     headers['Accept-Encoding'] = options.acceptEncoding;
+    headers.encoding = null;
   }
   if (options.platform) {
     headers['X-Platform'] = options.platform;
   }
 
   return headers;
+};
+
+/**
+ * Sends and decodes a request
+ * @param endpoint The endpoint to send the request to.Will be appended to the host specified in `options.host`
+ * @param options The options containing the `key`, `Content-Type`, etc
+ * @param payload The request body
+ */
+export const sendAndDecode = (endpoint: string, options: HVVClientOptions, payload: BaseRequest) => {
+  const headers = generateHeaders(options, payload);
+
+  return new Promise((resolve, reject) => {
+    request({
+      uri: `${options.host}${endpoint}`,
+      method: 'POST',
+      body: JSON.stringify(payload, null, 0),
+      headers,
+      gzip: typeof options.acceptEncoding !== 'undefined'
+    })
+      .then(res => resolve(JSON.parse(res)))
+      // The server responded with a status codes other than 2xx.
+      // Check reason.statusCode
+      .catch(StatusCodeError, e => reject(e))
+      // The request failed due to technical reasons.
+      // reason.cause is the Error object Request would pass into a callback.
+      .catch(RequestError, e => reject(e));
+  });
 };

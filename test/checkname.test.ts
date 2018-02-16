@@ -1,9 +1,10 @@
-import { HVVClient } from '../src';
-import { CoordinateType, ReturnCode, SDType } from '../src/enums';
-import { CNRequest } from '../src/requests/requesttypes';
+import { HVVClient } from '../src/';
+import { CNRequest } from '../src/requests/checkname';
+import { ReturnCode } from '../src/enums';
 
 jest.mock('request-promise', () =>
   jest.fn(req => {
+    const body = JSON.parse(req.body);
     return new Promise((resolve, reject) => {
       const baseResponse = {
         returnCode: 'OK',
@@ -21,11 +22,11 @@ jest.mock('request-promise', () =>
         ]
       };
 
-      if (req.body.__simulateResponse__) {
-        resolve({ ...baseResponse, ...req.body.__simulateResponse__ });
-      } else {
-        resolve(baseResponse);
+      let response = JSON.stringify(baseResponse);
+      if (body.__simulateResponse__) {
+        response = JSON.stringify({ ...baseResponse, ...body.__simulateResponse__ });
       }
+      resolve(response);
     });
   })
 );
@@ -41,7 +42,7 @@ const baseRequest: CNRequest = {
   }
 };
 
-describe('#checkName()', () => {
+describe('checkName', () => {
   test('it should resolve when returnCode is OK', async () => {
     const data = await client.checkName(baseRequest);
     expect(data).toBeDefined();
@@ -63,11 +64,11 @@ describe('#checkName()', () => {
     }
   });
 
-  test('it should reject when returnCode is undefined', async () => {
+  test('it should reject when returnCode is unknown', async () => {
     const req = {
       ...baseRequest,
       __simulateResponse__: {
-        returnCode: undefined
+        returnCode: 'purposely invalid return code'
       }
     };
     expect.assertions(1);

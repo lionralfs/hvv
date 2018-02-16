@@ -1,11 +1,9 @@
-import * as request from 'request-promise';
-import { RequestError, StatusCodeError } from 'request-promise/errors';
-import { ReturnCode, AnnouncementFilterPlannedType } from '../enums';
+import { ReturnCode, AnnouncementFilterPlannedType, AnnouncementReason } from '../enums';
 import { HVVClientOptions } from '../hvvclient';
-import { generateHeaders } from '../request';
 import { AnnouncementResponse } from '../responses/responsetypes';
 import { BaseRequest, RequestHeaders } from './requesttypes';
 import { TimeRange } from '../penalties';
+import { sendAndDecode } from '../request';
 
 export interface AnnouncementRequest extends BaseRequest {
   names?: string[];
@@ -15,40 +13,31 @@ export interface AnnouncementRequest extends BaseRequest {
 }
 
 export const getAnnouncements = (
-  headers: RequestHeaders,
   options: HVVClientOptions,
   req: AnnouncementRequest
 ): Promise<AnnouncementResponse> => {
   return new Promise<AnnouncementResponse>((resolve, reject) => {
-    request({
-      uri: `${options.host}/gti/public/getAnnouncements`,
-      method: 'POST',
-      body: req,
-      headers,
-      json: true
-    })
-      .then(res => normalizeResponse(res, resolve, reject))
-      .catch(StatusCodeError, e => reject(e))
-      .catch(RequestError, e => reject(e));
+    sendAndDecode('/gti/public/getAnnouncements', options, req)
+      .then(res => normalizeResponse(res))
+      .then(res => resolve(res))
+      .catch(error => reject(error));
   });
 };
 
-const normalizeResponse = (
-  res: any,
-  resolve: (value: AnnouncementResponse) => void,
-  reject: (reason: any) => void
-): void => {
-  switch (res.returnCode) {
-    case ReturnCode.OK:
-      resolve(res);
-      break;
-    case ReturnCode.ERROR_CN_TOO_MANY:
-    case ReturnCode.ERROR_COMM:
-    case ReturnCode.ERROR_ROUTE:
-    case ReturnCode.ERROR_TEXT:
-      reject(res);
-      break;
-    default:
-      reject('unknown returnCode');
-  }
+const normalizeResponse = (res: any): Promise<AnnouncementResponse> => {
+  return new Promise<AnnouncementResponse>((resolve, reject) => {
+    switch (res.returnCode) {
+      case ReturnCode.OK:
+        resolve(res);
+        break;
+      case ReturnCode.ERROR_CN_TOO_MANY:
+      case ReturnCode.ERROR_COMM:
+      case ReturnCode.ERROR_ROUTE:
+      case ReturnCode.ERROR_TEXT:
+        reject(res);
+        break;
+      default:
+        reject('unknown returnCode');
+    }
+  });
 };

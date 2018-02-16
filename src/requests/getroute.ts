@@ -1,11 +1,10 @@
-import * as request from 'request-promise';
 import { BaseRequest, RequestHeaders } from './requesttypes';
 import { HVVClientOptions } from '../hvvclient';
 import { SDName, GTITime, ContSearchByServiceId, TariffInfoSelector } from '../othertypes';
 import { CoordinateType, RealtimeType, SimpleServiceType, ReturnCode } from '../enums';
 import { PenaltyInterface } from '../penalties';
 import { BaseResponseType } from '../responses/responsetypes';
-import { StatusCodeError, RequestError } from 'request-promise/errors';
+import { sendAndDecode } from '../request';
 
 export interface GRRequest extends BaseRequest {
   start: SDName;
@@ -45,33 +44,29 @@ export interface GRResponse extends BaseResponseType {
  * @param options
  * @param req
  */
-export const getRoute = (headers: RequestHeaders, options: HVVClientOptions, req: GRRequest) => {
+export const getRoute = (options: HVVClientOptions, req: GRRequest) => {
   return new Promise<GRResponse>((resolve, reject) => {
-    request({
-      uri: `${options.host}/gti/public/getRoute`,
-      method: 'POST',
-      body: req,
-      headers,
-      json: true
-    })
-      .then(res => normalizeResponse(res, resolve, reject))
-      .catch(StatusCodeError, e => reject(e))
-      .catch(RequestError, e => reject(e));
+    sendAndDecode('/gti/public/getRoute', options, req)
+      .then(res => normalizeResponse(res))
+      .then(res => resolve(res))
+      .catch(error => reject(error));
   });
 };
 
-const normalizeResponse = (res: any, resolve: (res: any) => void, reject: (reason: string) => void) => {
-  switch (res.returnCode) {
-    case ReturnCode.OK:
-      resolve(res);
-      break;
-    case ReturnCode.ERROR_CN_TOO_MANY:
-    case ReturnCode.ERROR_COMM:
-    case ReturnCode.ERROR_ROUTE:
-    case ReturnCode.ERROR_TEXT:
-      reject(res);
-      break;
-    default:
-      reject('unknown returnCode');
-  }
+const normalizeResponse = (res: any): Promise<GRResponse> => {
+  return new Promise<GRResponse>((resolve, reject) => {
+    switch (res.returnCode) {
+      case ReturnCode.OK:
+        resolve(res);
+        break;
+      case ReturnCode.ERROR_CN_TOO_MANY:
+      case ReturnCode.ERROR_COMM:
+      case ReturnCode.ERROR_ROUTE:
+      case ReturnCode.ERROR_TEXT:
+        reject(res);
+        break;
+      default:
+        reject('unknown returnCode');
+    }
+  });
 };

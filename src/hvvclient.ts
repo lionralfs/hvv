@@ -5,7 +5,6 @@ import { listStations, LSRequest, LSCustomOptions } from './requests/liststation
 import { AnnouncementResponse, CNResponse, InitResponse, LSResponse } from './responses/responsetypes';
 import { getAnnouncements, AnnouncementRequest } from './requests/getannouncements';
 import { GRRequest, getRoute, GRResponse } from './requests/getroute';
-import { generateHeaders } from './request';
 
 export interface HVVClientInterface {
   init(req: InitRequest): Promise<InitResponse>;
@@ -89,24 +88,21 @@ export default class HVVClient implements HVVClientInterface {
    * Returns some server status informations (schedule validity, data version, program version, ...)
    */
   public init(req: InitRequest) {
-    const headers = generateHeaders(this.options, req);
-    return init(headers, this.options, req);
+    return init(this.options, req);
   }
 
   /**
    * Verifies the user input and returns a list of possible unique places for that input
    */
   public checkName(req: CNRequest): Promise<CNResponse> {
-    const headers = generateHeaders(this.options, req);
-    return checkName(headers, this.options, req);
+    return checkName(this.options, req);
   }
 
   /**
    * Calculates a route for the given parameters
    */
   public getRoute(req: GRRequest): Promise<GRResponse> {
-    const headers = generateHeaders(this.options, req);
-    return getRoute(headers, this.options, req);
+    return getRoute(this.options, req);
   }
 
   /**
@@ -136,8 +132,7 @@ export default class HVVClient implements HVVClientInterface {
   public listStations(req?: LSRequest, custom?: LSCustomOptions): Promise<LSResponse> {
     const reqObj = req || {};
     const customObj = custom || {};
-    const headers = generateHeaders(this.options, reqObj);
-    return listStations(headers, this.options, reqObj, customObj);
+    return listStations(this.options, reqObj, customObj);
   }
 
   /**
@@ -151,8 +146,7 @@ export default class HVVClient implements HVVClientInterface {
    * Returns a list schedule variance announcements
    */
   public getAnnouncements(req: AnnouncementRequest) {
-    const headers = generateHeaders(this.options, req);
-    return getAnnouncements(headers, this.options, req);
+    return getAnnouncements(this.options, req);
   }
 
   /**
@@ -198,6 +192,9 @@ export default class HVVClient implements HVVClientInterface {
     }
     if (typeof normOpts.key !== 'string') {
       throw new TypeError(`key has to be a string, is of type ${typeof normOpts.key}`);
+    }
+    if (normOpts.contentType === 'application/xml') {
+      throw new TypeError('contentType: application/xml currently not supported');
     }
     return normOpts;
   }

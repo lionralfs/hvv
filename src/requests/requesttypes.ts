@@ -19,6 +19,7 @@ export interface RequestHeaders {
   'X-Platform'?: string;
   'X-TraceId'?: string;
   'User-Agent'?: string;
+  encoding?: string;
 }
 
 export interface BaseRequest {
