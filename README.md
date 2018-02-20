@@ -99,7 +99,7 @@ Represents the clients platform.
 
 ##### [getRoute(GRRequest)](docs/getroute.md)
 
-##### [departureList()](docs/departurelist.md)
+##### [departureList(DLRequest)](docs/departurelist.md)
 
 ##### [getTariff()](docs/gettariff.md)
 
