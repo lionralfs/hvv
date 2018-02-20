@@ -91,6 +91,22 @@ Default: platform not specified
 
 Represents the clients platform.
 
+### Methods
+
+#### [init(InitRequest)](docs/init.md)
+#### [checkName(CNRequest)](docs/checkname.md)
+#### [getRoute(GRRequest)](docs/getroute.md)
+#### [departureList()](docs/departurelist.md)
+#### [getTariff()](docs/gettariff.md)
+#### [departureCourse()](docs/departurecourse.md)
+#### [listStations(LSRequest, LSCustomOptions)](docs/liststations.md)
+#### [getAnnouncements(AnnouncementRequest)](docs/getannouncements.md)
+#### [checkPostalCode()](docs/checkpostalcode.md)
+#### [getVehicleMap()](docs/getvehiclemap.md)
+#### [getTrackCoordinates()](docs/gettrackcoordinates.md)
+#### [getIndividualRoute()](docs/getindividualroute.md)
+#### [getStationInformation()](docs/getstationinformation.md)
+
 ## License
 
 [MIT](LICENSE) © Lion Ralfs
