@@ -5,12 +5,13 @@ import { listStations, LSRequest, LSCustomOptions } from './requests/liststation
 import { AnnouncementResponse, CNResponse, InitResponse, LSResponse } from './responses/responsetypes';
 import { getAnnouncements, AnnouncementRequest } from './requests/getannouncements';
 import { GRRequest, getRoute, GRResponse } from './requests/getroute';
+import { DLRequest, DLResponse, departureList } from './requests/departurelist';
 
 export interface HVVClientInterface {
   init(req: InitRequest): Promise<InitResponse>;
   checkName(req: CNRequest): Promise<CNResponse>;
   getRoute(req: GRRequest): Promise<GRResponse>;
-  departureList(): void;
+  departureList(req: DLRequest): Promise<DLResponse>;
   getTariff(): void;
   departureCourse(): void;
   listStations(req: LSRequest): Promise<LSResponse>;
@@ -108,8 +109,8 @@ export default class HVVClient implements HVVClientInterface {
   /**
    * Returns a list of journeys departing or arriving at the given station
    */
-  public departureList() {
-    console.log('I am not implemented yet');
+  public departureList(req: DLRequest): Promise<DLResponse> {
+    return departureList(this.options, req);
   }
 
   /**

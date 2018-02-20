@@ -1,5 +1,6 @@
 /**
- * type of location. * UNKNOWN since version 6
+ * type of location.
+ * UNKNOWN since API version 6
  */
 export enum SDType {
   STATION = 'STATION',
@@ -23,6 +24,31 @@ export enum FilterType {
   NO_FILTER = 'NO_FILTER'
 }
 
+/**
+ * To filter departures by service type.
+ * since API version 22
+ */
+export enum FilterServiceType {
+  ZUG = 'ZUG',
+  UBAHN = 'UBAHN',
+  SBAHN = 'SBAHN',
+  AKN = 'AKN',
+  RBAHN = 'RBAHN',
+  FERNBAHN = 'FERNBAHN',
+  BUS = 'BUS',
+  STADTBUS = 'STADTBUS',
+  METROBUS = 'METROBUS',
+  SCHNELLBUS = 'SCHNELLBUS',
+  NACHTBUS = 'NACHTBUS',
+  EILBUS = 'EILBUS',
+  AST = 'AST',
+  FAEHRE = 'FAEHRE'
+}
+
+/**
+ * Enumeration with all simple types of services
+ * BICYCLE since API version 17
+ */
 export enum SimpleServiceType {
   BUS = 'BUS',
   TRAIN = 'TRAIN',
