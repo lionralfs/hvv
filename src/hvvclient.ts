@@ -145,7 +145,7 @@ export default class HVVClient implements HVVClientInterface {
   /**
    * Returns a list schedule variance announcements
    */
-  public getAnnouncements(req: AnnouncementRequest) {
+  public getAnnouncements(req: AnnouncementRequest): Promise<AnnouncementResponse> {
     return getAnnouncements(this.options, req);
   }
 
