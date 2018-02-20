@@ -16,8 +16,9 @@ export interface InitResponse extends BaseResponseType {
   buildText?: string;
 }
 
-/** checkName Response */
+/** The response for a CNRequest with a list of SDNames. */
 export interface CNResponse extends BaseResponseType {
+  /** The list with the SDName objects. */
   results: RegionalSDName[];
 }
 

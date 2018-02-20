@@ -23,7 +23,16 @@ export interface RequestHeaders {
 }
 
 export interface BaseRequest {
+  /**
+   * Used version of GeofoxThinInterface on Client.
+   */
   version?: number;
+  /**
+   * Language in which the server will respond. (de/en)
+   */
   language?: 'de' | 'en';
+  /**
+   * Sets the filter for the result.
+   */
   filterType?: FilterType;
 }
