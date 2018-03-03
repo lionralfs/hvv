@@ -91,6 +91,17 @@ Default: platform not specified
 
 Represents the clients platform.
 
+#### version
+
+Type: `number`<br>
+
+Pins a specific API version to use in every request.
+Can be overwritten in specific requests by using the `version`
+parameter of a `BaseRequest`.
+
+Default: 1 (it's advised to supply a version here, since version 1
+is quite old)
+
 ### Methods
 
 ##### [init(InitRequest)](docs/init.md)
