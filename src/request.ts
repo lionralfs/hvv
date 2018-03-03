@@ -61,6 +61,9 @@ const generateHeaders = (options: HVVClientOptions, payload: BaseRequest): Reque
  * @param payload The request body
  */
 export const sendAndDecode = (endpoint: string, options: HVVClientOptions, payload: BaseRequest) => {
+  if (!payload.version && options.version) {
+    payload.version = options.version;
+  }
   const headers = generateHeaders(options, payload);
 
   return new Promise((resolve, reject) => {

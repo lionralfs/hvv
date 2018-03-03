@@ -63,6 +63,15 @@ export interface HVVClientOptions {
    * - mobile (for mobile websites)
    */
   platform?: 'ios' | 'android' | 'winphone' | 'web' | 'mobile';
+
+  /**
+   * Pins a specific API version to use in every request.
+   * Can be overwritten in specific requests by using the `version`
+   * parameter of a `BaseRequest`.
+   * Default: 1 (it's advised to supply a version here, since version 1
+   * is quite old)
+   */
+  version?: number;
 }
 
 interface DefaultOptions {
